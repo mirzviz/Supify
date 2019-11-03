@@ -1,21 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
+import MeContextProvider from "./MeContext";
+import Stam from "./Stam";
 
-useEffect(() => {
-  const {} = getUrlParams();
-});
-
-const getUrlParams = () => {
-  var url_string = window.location.href;
-  var url = new URL(url_string);
-  var accessToken = url.searchParams.get("access_token");
-  console.log(accessToken);
-  var refreshToken = url.searchParams.get("refresh_token");
-  console.log(refreshToken);
-
-};
 function App() {
-  return <div className="App">Hello Supe</div>;
+  return (
+    <div className="App">
+      <MeContextProvider>
+        <Stam></Stam>
+      </MeContextProvider>
+    </div>
+  );
 }
 
 export default App;
