@@ -4,14 +4,14 @@ export const MeContext = createContext();
 
 export default function MeContextPovider(props) {
     
-    const [accessToken, setAccessToken] = useState();
-    const [refreshToken, setRefreshToken] = useState();
+    const [accessToken, setAccessToken] = useState(123);
+    const [refreshToken, setRefreshToken] = useState(321);
 
     useEffect(() => {
         let urlParams = getUrlParams();
-        // setAccessToken(urlParams.)
-        console.log(urlParams);
-    });
+        setAccessToken(urlParams.access_token);
+        setRefreshToken(urlParams.refresh_token);
+    }, []);
 
     const getUrlParams = () => {
         var hashParams = {};
@@ -26,7 +26,7 @@ export default function MeContextPovider(props) {
       }
 
     return (
-        <MeContext.Provider value={accessToken, refreshToken}>
+        <MeContext.Provider value={{accessToken, refreshToken}}>
             {props.children}
         </MeContext.Provider>
     )
