@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import MeContextProvider from "./MeContext";
+import {MeContextProvider} from "./MeContext";
 import Stam from "./Stam";
 
 function App() {
