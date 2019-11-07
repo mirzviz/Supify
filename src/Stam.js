@@ -2,18 +2,16 @@ import React, { useContext } from "react";
 import { MeContext } from "./MeContext";
 
 export default function Stam() {
-  const { accessToken, refreshToken } = useContext(MeContext);
-
-  const fuckYou = () => {
-    console.log(accessToken);
-  };
+  const { accessToken, refreshTheToken } = useContext(MeContext);
 
   return (
-    <>
-      <div onClick={fuckYou}>
-        Access: {accessToken}
-      </div>
-      <div onClick={fuckYou}>Refresh: {refreshToken}</div>
-    </>
+    <div className="container">
+        <div className="row">
+            <div className="col">
+                <h4> {accessToken}</h4>
+                <button onClick={refreshTheToken} className=''>refresh token</button>
+            </div>
+        </div>
+    </div>
   );
 }

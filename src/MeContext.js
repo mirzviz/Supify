@@ -10,6 +10,8 @@ export const MeContextProvider = (props) => {
     const [accessToken, setAccessToken] = useState();
     const [refreshToken, setRefreshToken] = useState();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userInfo, setUserInfo] = useState();
+    const [topArtists, setTopArtists] = useState();
 
     useEffect(() => {
         const {access_token, refresh_token} = getUrlParams();
@@ -18,30 +20,42 @@ export const MeContextProvider = (props) => {
             setRefreshToken(refresh_token);
             setIsLoggedIn(true);
             spotifyApi.setAccessToken(accessToken);
-            // refreshTheToken();
             getMe();
+            getTopArtists();
         }
-    }, [accessToken, refreshToken]);
+    }, [accessToken]);
 
-    const getMe = async() => {
+    const refreshTheToken = async () => {
         try{
-            let me = await spotifyApi.getMe();
-            console.log(me);
-        }
-        catch(e){console.log(e)}
-    }
-
-    const refreshTheToken = async() => {
-        try{
-          const newAccessToken = await fetch(`https://supify.herokuapp.com/refresh_token?refresh_token=${refreshToken}`);
+          const newAccessToken = await fetch(`https://spotifity-server.herokuapp.com/refresh_token?refresh_token=${refreshToken}`);
           const newAccessTokenJson = await newAccessToken.json();
           spotifyApi.setAccessToken(newAccessTokenJson.access_token);
-          this.setState({accessToken: newAccessTokenJson.access_token});
+          console.log(newAccessTokenJson.access_token);
+          setAccessToken(newAccessTokenJson.access_token);
         }
         catch(e){
           console.log(e);
         }
       }
+
+    const getMe = async() => {
+        try{
+            let me = await spotifyApi.getMe(); 
+            setUserInfo(me);
+            console.log(me);
+        }
+        catch(e){console.log(e)}
+    }
+
+    const getTopArtists = async() => {
+        try{
+            let topArtists = await spotifyApi.getMyTopArtists({limit: 20});
+            console.log(topArtists);
+            setTopArtists(topArtists.items);  
+        }
+        catch(e){console.log(e);}
+    }
+
 
     const getUrlParams = () => {
         var hashParams = {};
@@ -56,7 +70,7 @@ export const MeContextProvider = (props) => {
     }
 
     return (
-        <MeContext.Provider value={{accessToken, refreshToken}}>
+        <MeContext.Provider value={{accessToken, refreshToken, isLoggedIn, userInfo, topArtists, refreshTheToken}}>
             {props.children}
         </MeContext.Provider>
     )
