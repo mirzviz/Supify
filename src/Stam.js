@@ -9,7 +9,7 @@ export default function Stam() {
         <div className="row">
             <div className="col">
                 <h4> {accessToken}</h4>
-                <button onClick={refreshTheToken} className=''>refresh token</button>
+                <button onClick={refreshTheToken} className=''>Start App</button>
             </div>
         </div>
     </div>
