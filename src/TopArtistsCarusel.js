@@ -27,8 +27,9 @@ const TopArtistsCarusel = ({ className }) => {
                   <Carousel.Caption>
                     <h1>{artist.name}</h1>
                     <p>
-                      Praesent commodo cursus magna, vel scelerisque nisl
-                      consectetur.
+                      {
+                        artist.albums.slice(0,3).map(album => album.name).join(', ')
+                      }
                     </p>
                   </Carousel.Caption>
                 </Carousel.Item>
