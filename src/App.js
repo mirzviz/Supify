@@ -4,10 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { MeContextProvider } from "./MeContext";
 import TopArtistCarusel from "./TopArtistsCarusel";
 import ArtistsAlbums from './ArtistsAlbums';
+import styled from 'styled-components';
 
-function App() {
+const App = ({className}) => {
   return (
-    <div className="App">
+    <div className={className}>
       <MeContextProvider>
         <TopArtistCarusel />
         <ArtistsAlbums />
@@ -16,4 +17,7 @@ function App() {
   );
 }
 
-export default App;
+export default styled(App)`
+  overflow-x: hidden;
+  text-align: center;
+`;
