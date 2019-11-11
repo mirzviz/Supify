@@ -5,15 +5,16 @@ import styled from "styled-components";
 
 const ArtistsAlbums = ({ className }) => {
   let { topArtists, selectedArtist } = useContext(MeContext);
-
+  console.log(selectedArtist);
   let render = <div></div>;
 
   if (topArtists) {
     render = (
       <Row className={className}>
-        {topArtists[selectedArtist].albums.map((album, i) => (
-          <Col xs={12} sm={6} md={4} lg={3} className='col'>
-            <Card className='' key={i}>
+        {
+          topArtists[selectedArtist].albums.map((album, i) => (
+          <Col key={i} xs={12} sm={6} md={4} lg={3} className='col'>
+            <Card className=''>
               <Card.Img
                 className="size"
                 variant="top"
