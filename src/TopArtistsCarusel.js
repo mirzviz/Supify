@@ -2,6 +2,9 @@ import React, { useContext, useEffect } from "react";
 import { MeContext } from "./MeContext";
 import { Container, Row, Col, Carousel, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { goToAnchor, configureAnchors  } from 'react-scrollable-anchor'
+
+configureAnchors({scrollDuration: 2000});
 
 const TopArtistsCarusel = ({ className }) => {
   let { topArtists, refreshTheToken, setSelectedArtist } = useContext(
@@ -14,6 +17,7 @@ const TopArtistsCarusel = ({ className }) => {
 
   const updateItem = num => {
     setSelectedArtist(num);
+    goToAnchor('artist-albums', true);
   };
 
   let bob = <Button onClick={refreshTheToken}>Start The App</Button>;
@@ -23,7 +27,7 @@ const TopArtistsCarusel = ({ className }) => {
       <Carousel className={className}>
         {topArtists.map((artist, i) => (
           <Carousel.Item key={artist.id}>
-            <div className="img" onClick={() => updateItem(i)}>
+            <div className="img" onClick={(e) => {e.preventDefault(); updateItem(i);}}>
               <img
                 className=""
                 src={topArtists[i].images[0].url}

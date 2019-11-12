@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
 const spotifyApi = new SpotifyWebApi();
-
 export const MeContext = createContext();
 
 export const MeContextProvider = props => {
@@ -11,7 +10,8 @@ export const MeContextProvider = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState();
   const [topArtists, setTopArtists] = useState();
-  const [selectedArtist, setSelectedArtist] = useState(0);
+  const [selectedArtist, setSelectedArtist] = useState(-1);
+  const [selectedAlbum, setSelectedAlbum] = useState(-1);
 
   useEffect(() => {
     const { access_token, refresh_token } = getUrlParams();
@@ -94,7 +94,9 @@ export const MeContextProvider = props => {
         refreshTheToken,
         getTopArtists,
         selectedArtist,
-        setSelectedArtist
+        setSelectedArtist,
+        selectedAlbum,
+        setSelectedAlbum
       }}
     >
       {props.children}
